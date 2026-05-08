@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Utilities</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+<body>
+    <nav>
+        <div class="logo">PDF Utilities</div>
+        <ul class="nav-links">
+            <li data-section="img2pdf">Image to PDF</li>
+            <li data-section="merge-pdfs">Merge PDFs</li>
+            <li data-section="compress-pdf">Compress PDF</li>
+            <li data-section="compress-pdf-size">Compress PDF to Size</li>
+            <li data-section="remove-pages">Remove Pages</li>
+            <li data-section="merge-img-pdf">Merge Images & PDFs</li>
+            <li data-section="compress-img">Compress Image</li>
+            <li data-section="compress-img-size">Compress Image to Size</li>
+            <li data-section="reorder-pages">Reorder Pages</li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="img2pdf" class="tool-section">
+            <h2>Convert Images to PDF</h2>
+            <form action="/process" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="tool" value="img2pdf">
+                <div class="form-group">
+                    <label for="img2pdf-files">Select Images:</label>
+                    <input type="file" id="img2pdf-files" name="files" multiple accept="image/*">
+                </div>
+                <button type="submit">Convert</button>
+            </form>
+        </section>
+
+        <section id="merge-pdfs" class="tool-section hidden">
+            <h2>Merge PDFs</h2>
+            <form action="/process" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="tool" value="merge-pdfs">
+                <div class="form-group">
+                    <label for="merge-files">Select PDFs:</label>
+                    <input type="file" id="merge-files" name="files" multiple accept=".pdf">
+                </div>
+                <button type="submit">Merge</button>
+            </form>
+        </section>
+
+        <section id="compress-pdf" class="tool-section hidden">
+            <h2>Compress PDF</h2>
+            <form action="/process" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="tool" value="compress-pdf">
+                <div class="form-group">
+                    <label for="compress-file">Select PDF:</label>
+                    <input type="file" id="compress-file" name="file" accept=".pdf">
+                </div>
+                <div class="form-group">
+                    <label for="quality">Compression Level:</label>
+                    <select id="quality" name="quality">
+                        <option value="screen">Low Quality (Maximum Compression)</option>
+                        <option value="ebook" selected>Medium Quality</option>
+                        <option value="printer">Good Quality</option>
+                        <option value="prepress">High Quality (Minimum Compression)</option>
+                        <option value="default">Default</option>
+                    </select>
+                </div>
+                <button type="submit">Compress</button>
+            </form>
+        </section>
+
+        <section id="compress-pdf-size" class="tool-section hidden">
+            <h2>Compress PDF to Size</h2>
+            <form action="/process" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="tool" value="compress-pdf-size">
+                <div class="form-group">
+                    <label for="compress-size-file">Select PDF:</label>
+                    <input type="file" id="compress-size-file" name="file" accept=".pdf">
+                </div>
+                <div class="form-group">
+                    <label for="target-size">Target Size:</label>
+                    <select id="target-size" name="target-size">
+                        <option value="100">Less than 100KB</option>
+                        <option value="300">Less than 300KB</option>
+                        <option value="500">Less than 500KB</option>
+                        <option value="1024">Less than 1MB</option>
+                    </select>
+                </div>
+                <button type="submit">Compress</button>
+            </form>
+        </section>
+
+        <section id="remove-pages" class="tool-section hidden">
+            <h2>Remove Pages from PDF</h2>
+            <form action="/process" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="tool" value="remove-pages">
+                <div class="form-group">
+                    <label for="remove-file">Select PDF:</label>
+                    <input type="file" id="remove-file" name="file" accept=".pdf">
+                </div>
+                <div class="form-group">
+                    <label for="pages">Pages to Keep (e.g., "1-5 7 9-end"):</label>
+                    <input type="text" id="pages" name="pages" placeholder="1-5 7 9-end">
+                </div>
+                <button type="submit">Create New PDF</button>
+            </form>
+        </section>
+
+        <section id="merge-img-pdf" class="tool-section hidden">
+            <h2>Merge Images and PDFs</h2>
+            <form action="/process" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="tool" value="merge-img-pdf">
+                <div class="form-group">
+                    <label for="merge-mixed-files">Select Files:</label>
+                    <input type="file" id="merge-mixed-files" name="files" multiple accept=".pdf,image/*">
+                </div>
+                <button type="submit">Merge</button>
+            </form>
+        </section>
+
+        <section id="compress-img" class="tool-section hidden">
+            <h2>Compress Image</h2>
+            <form action="/process" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="tool" value="compress-img">
+                <div class="form-group">
+                    <label for="img-compress-file">Select Image:</label>
+                    <input type="file" id="img-compress-file" name="file" accept="image/*">
+                </div>
+                <div class="form-group">
+                    <label for="img-quality">Quality (1-100):</label>
+                    <input type="range" id="img-quality" name="quality" min="1" max="100" value="75">
+                    <span id="quality-value">75</span>
+                </div>
+                <button type="submit">Compress</button>
+            </form>
+        </section>
+
+        <section id="compress-img-size" class="tool-section hidden">
+            <h2>Compress Image to Size</h2>
+            <form action="/process" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="tool" value="compress-img-size">
+                <div class="form-group">
+                    <label for="img-compress-size-file">Select Image:</label>
+                    <input type="file" id="img-compress-size-file" name="file" accept="image/*">
+                </div>
+                <div class="form-group">
+                    <label for="img-target-size">Target Size:</label>
+                    <select id="img-target-size" name="target-size">
+                        <option value="100">Less than 100KB</option>
+                        <option value="300">Less than 300KB</option>
+                        <option value="500">Less than 500KB</option>
+                        <option value="1024">Less than 1MB</option>
+                    </select>
+                </div>
+                <button type="submit">Compress</button>
+            </form>
+        </section>
+
+        <section id="reorder-pages" class="tool-section hidden">
+            <h2>Reorder and Remove Pages</h2>
+            <form id="reorder-pages-form" action="/process" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="tool" value="reorder-pages">
+                <input type="hidden" name="action" value="process-reorder">
+                <div class="form-group">
+                    <label for="reorder-files">Select PDF:</label>
+                    <input type="file" id="reorder-files" name="files" accept=".pdf">
+                </div>
+                <div class="form-group">
+                    <label for="order">New Page Order (e.g., "3 1 2"):</label>
+                    <input type="text" id="order" name="order" placeholder="Enter page numbers (leave blank for default)">
+                </div>
+                <div class="form-group">
+                    <label for="remove-pages">Pages to Remove (e.g., "4 5"):</label>
+                    <input type="text" id="remove-pages" name="remove_pages" placeholder="Enter pages to remove (optional)">
+                </div>
+                <button type="submit">Process PDF</button>
+            </form>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
